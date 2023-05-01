@@ -1,0 +1,11 @@
+Model Information:
+* title:	Lugia-Statue
+* source:	https://sketchfab.com/3d-models/lugia-statue-7bddaec2d65f400fb4db8d77f47bdffb
+* author:	Marco Fascinetto (https://sketchfab.com/Marco.Fascinetto)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Lugia-Statue" (https://sketchfab.com/3d-models/lugia-statue-7bddaec2d65f400fb4db8d77f47bdffb) by Marco Fascinetto (https://sketchfab.com/Marco.Fascinetto) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

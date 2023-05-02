@@ -22,6 +22,8 @@ import {GLTFLoader} from './three.js/examples/jsm/loaders/GLTFLoader.js'
 
 // Switch Camera -> Spacebar
 
+// Raycast -> Click on Sphere and Wire
+
 
 
 var scene, renderer, currentCamera

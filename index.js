@@ -161,6 +161,7 @@ const createPlatformHolder = () => {
         wireframe: true
     })
     const mesh = new THREE.Mesh(geo, material)
+    mesh.name = "WireRed"
 
     mesh.rotateX(Math.PI)
 
@@ -274,6 +275,10 @@ const createPillarLight = () => {
     pillarInnerLight3.position.set(45, 45, -190)
     pillarInnerLight4.position.set(40, 45, -240)
 
+    sphereInnerPillar1.name = "InnerSphereInactive"
+    sphereInnerPillar2.name = "InnerSphereInactive"
+    sphereInnerPillar3.name = "InnerSphereInactive"
+    sphereInnerPillar4.name = "InnerSphereInactive"
 
     scene.add(pillarInnerLight1)
     scene.add(pillarInnerLight2)
@@ -297,6 +302,11 @@ const createPillarLight = () => {
     sphereOuterPillar2.position.set(-80, 115, -270)
     sphereOuterPillar3.position.set(85, 115, -160)
     sphereOuterPillar4.position.set(80, 115, -270)
+
+    sphereOuterPillar1.name = "OuterSphereInactive"
+    sphereOuterPillar2.name = "OuterSphereInactive"
+    sphereOuterPillar3.name = "OuterSphereInactive"
+    sphereOuterPillar4.name = "OuterSphereInactive"
 
     scene.add(sphereOuterPillar1)
     scene.add(sphereOuterPillar2)
@@ -351,15 +361,16 @@ const createLugia = () => {
     const load3D = new GLTFLoader().load('./assets/lugia/scene.gltf', (object) => {
         
         const model = object.scene
+        model.name = "Lugia"
         model.scale.set(20, 20, 20)
         model.position.set(0, 75, -230)
         
         model.traverse(function(objectNode){
             if(objectNode.isMesh){
+                objectNode.name = "Lugia"
                 objectNode.castShadow = true
             }
         })
-        
         
         scene.add(model)
     })
@@ -435,7 +446,7 @@ renderFunction();
 var ray = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
 
-window.addEventListener("mousemove", (e) => {
+window.addEventListener("pointerdown", (e) => {
 
     mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
     mouse.y = - (e.clientY / window.innerHeight) * 2 + 1;
@@ -444,10 +455,35 @@ window.addEventListener("mousemove", (e) => {
 
     const intersects = ray.intersectObjects(scene.children)
 
-    for (let i = 0; i < intersects.length; i++) {
-        // intersects[i].material.transparent = true
-    }
+    const orbMaterial = new THREE.TextureLoader().load("./assets/floor.jpg")
 
-})
+    for (let i = 0; i < intersects.length; i++) {
+        
+        if(intersects[i].object.name === "OuterSphereInactive"){
+             intersects[i].object.material.lightMapIntensity = 1
+             intersects[i].object.name = "OuterSphereActive"
+        } else if(intersects[i].object.name === "OuterSphereActive"){
+            intersects[i].object.material.lightMapIntensity = 0.7
+            intersects[i].object.name = "OuterSphereInactive"
+        }
+
+        if(intersects[i].object.name === "InnerSphereInactive"){
+            intersects[i].object.material.emissiveIntensity = 1
+            intersects[i].object.name = "InnerSphereActive"
+       } else if(intersects[i].object.name === "InnerSphereActive"){
+           intersects[i].object.material.emissiveIntensity = 0.5
+           intersects[i].object.name = "InnerSphereInactive"
+       }
+
+       if(intersects[i].object.name === "WireRed"){
+            intersects[i].object.material.emissive = new THREE.Color(0xffff)
+            intersects[i].object.name = "WireBlue"
+        } else if(intersects[i].object.name === "WireBlue"){
+            intersects[i].object.material.emissive = new THREE.Color(0xff0040)
+            intersects[i].object.name = "WireRed"
+       }
+    }
+}
+)
 
 
